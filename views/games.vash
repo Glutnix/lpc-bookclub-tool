@@ -1,27 +1,41 @@
 @html.extend('layout', function(model){
 
-    @html.block('content', function(model){
-            
-        <h2>@model.channel</h2>
+  @html.block('content', function(model){
 
-        <table class="table table-bordered">
-            @model.geeklistData.item.forEach(function(item){
-                <tr>
-                    <td>
-                        <a href="https://boardgamegeek.com/boardgame/@item.$.">@item.$.objectname</a>
-                    </td>
-                    <td class="text-right">
-                      @item.$.thumbedby.length
-                    </td>
-                    <td>
-                        @item.$.thumbedby.join(', ')
-                    </td>
-                </tr>
-            })
-        </table>
+    <h2>@model.channel</h2>
 
-        <p><a href="?json=true">view as json</a></p>
+    <table class="table table-bordered">
+      <thead>
+        <th>Game</th>
+        <th>Players</th>
+        <th>Recommended by</th>
+        <th>Thumbs</th>
+      </thead>
+        @model.geeklistData.item.forEach(function(item){
+          <tr>
+            <td>
+                <a href="https://boardgamegeek.com/boardgame/@item.$.">@item.$.objectname</a>
+            </td>
+            <td>
+              @if (item.$.gamedata.minplayers[0] === item.$.gamedata.maxplayers[0]) {
+                @item.$.gamedata.minplayers[0]
+              } else {
+                @item.$.gamedata.minplayers[0] – @item.$.gamedata.maxplayers[0]
+              }
+            </td>
+            <td>
+                @item.$.thumbedby.join(', ')
+            </td>
+            <td class="text-right">
+              @item.$.thumbedby.length thumbs
+            </td>
 
-    })
+          </tr>
+        })
+    </table>
+
+    <p><a href="?json=true">view as json</a></p>
+
+  })
 
 })
