@@ -1,0 +1,27 @@
+@html.extend('layout', function(model){
+
+    @html.block('content', function(model){
+            
+        <h2>@model.channel</h2>
+
+        <table class="table table-bordered">
+            @model.geeklistData.item.forEach(function(item){
+                <tr>
+                    <td>
+                        <a href="https://boardgamegeek.com/boardgame/@item.$.">@item.$.objectname</a>
+                    </td>
+                    <td class="text-right">
+                      @item.$.thumbedby.length
+                    </td>
+                    <td>
+                        @item.$.thumbedby.join(', ')
+                    </td>
+                </tr>
+            })
+        </table>
+
+        <p><a href="?json=true">view as json</a></p>
+
+    })
+
+})
