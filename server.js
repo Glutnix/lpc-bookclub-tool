@@ -26,7 +26,8 @@ const apiAxiosClient = axios.create({
   timeout: REQUEST_TIMEOUT_MS,
   jar: cookieJar,
   withCredentials: true,
-  responseType: 'text'
+  responseType: 'text',
+  stdTTL: 300
 });
 
 const apiClient = cachios.create(apiAxiosClient);
@@ -59,7 +60,7 @@ app.get("/", function (request, response) {
     });
   })
   .then((geeklistData) => {
-    switch (request.accepts(['json', 'html'])) {
+    switch (request.query.json ? 'json' : request.accepts(['json', 'html'])) {
       case 'json':
         response.send(geeklistData);
         break;
