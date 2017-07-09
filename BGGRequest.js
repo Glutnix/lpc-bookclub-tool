@@ -37,6 +37,9 @@ class BGGRequest {
       password: process.env.BGG_PASSWORD,
     };  
     return this.apiClient.post('/login', querystring.stringify(payload))
+      .catch((err) => {
+        throw new Error(err);
+      })
       .then((res) => res.data)
       .then((data) => {
         if (data.indexOf('Invalid Username/Password') !== -1) {
@@ -52,7 +55,19 @@ class BGGRequest {
 
   getGeeklist(geeklistId) {
     return this.apiClient.get(`/xmlapi/geeklist/${geeklistId}`)
+      .catch((err) => {
+        throw new Error(err);
+      })
+      .then((res) => {
+        if (res.data.indexOf("<?xml") > 0) {
+          throw new Error('Failed getting the geeklist, malformed response.');
+        }
+        return res;
+      })
       .then((res) => XMLToJSON(res.data))
+      .catch((err) => {
+        throw err;
+      })
       .then((data) => {
         if (!data.geeklist) {
           throw new Error("Response does not contain a geeklist");
@@ -69,6 +84,9 @@ class BGGRequest {
     };
     
     return this.apiClient.post('/geekrecommend.php', querystring.stringify(payload))
+      .catch((err) => {
+        throw new Error(err);
+      })
       .then((res) => {
         let thumbs = striptags(res.data);
         thumbs = thumbs.replace(/[\t\n]+/g, ' ');
@@ -80,14 +98,31 @@ class BGGRequest {
   }
   
   getGameDataForItems(itemlist) {
-    console.log(`getting boardgame ${itemlist.join()}`);
     return this.apiClient.get(`/xmlapi/boardgame/${itemlist.join()}`)
       .catch((err) => {
         throw new Error(err);
       })
       .then((res) => XMLToJSON(res.data))
+      .catch((err) => {
+        throw err;
+      })
+
       .then((data) => {
         return data.boardgames.boardgame;
+      });
+  }
+  
+  saveItemOrderForGeeklist(geeklistId, idArray) {
+    const payload = {
+      action: 'savereorder',
+      ajax: 1,
+      listid: geeklistId,
+      'itemids[]': idArray,
+    };
+    
+    return this.apiClient.post('/geeklist/reorder/save', querystring.stringify(payload))
+      .catch((err) => {
+        throw new Error(err);
       });
   }
 }
@@ -96,13 +131,16 @@ function XMLToJSON(data) {
   return new Promise((resolve, reject) => {
     parseString(data, function (err, result) {    
       if (err) {
+        console.error(data);
         reject(err);
       } else {
         resolve(result);
       }
     })
+  }).catch((err) => {
+    throw new Error(err);
   });
-}
+};
 
 // https://boardgamegeek.com/xmlapi/boardgame/192312
 

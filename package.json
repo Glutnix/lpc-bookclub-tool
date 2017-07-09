@@ -17,7 +17,8 @@
     "xml2js": "^0.4.17",
     "striptags": "^3.0.1",
     "vash": "^0.12.2",
-    "cachios": "^1.0.5"
+    "cachios": "^1.0.5",
+    "persistent-cache": "^1.1.1"
   },
   "engines": {
     "node": "8.1.x"

@@ -1,0 +1,17 @@
+@html.extend('layout', function(model) {
+
+  @html.block('content', function(model) {
+
+    <h2>Error</h2>
+    
+    <p>There was an error of some kind.</p>
+    <p>
+      <blockquote>
+        @model.errorMessage
+      </blockquote>
+    </p>
+
+    <p>This is most likely because the BGG API is being slow returning the geeklist. Wait 30 seconds, then try refreshing the page.</p>
+
+  })
+})

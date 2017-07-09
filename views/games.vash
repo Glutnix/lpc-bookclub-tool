@@ -2,19 +2,35 @@
 
   @html.block('content', function(model){
 
-    <h2>@model.channel</h2>
+    <h2>Current Top Picks for the next Book Club</h2>
+      
+    <div class="columns">
+      <div class="columns-half">
+        <h3>Solo Game - <a href="https://boardgamegeek.com/boardgame/@model.topSoloGame.$.objectid">@model.topSoloGame.$.objectname</a></h3>
+        <a href="https://boardgamegeek.com/boardgame/@model.topSoloGame.$.objectid"><img class="top-pick-image" src="@model.topSoloGame.$.gamedata.image" alt=""></a>
+      </div>
+      <div class="columns-half">
+        <h3>2 Player Game - <a href="https://boardgamegeek.com/boardgame/@model.topTwoPlayerGame.$.objectid">@model.topTwoPlayerGame.$.objectname</a></h3>
+        <a href="https://boardgamegeek.com/boardgame/@model.topTwoPlayerGame.$.objectid"><img class="top-pick-image" src="@model.topTwoPlayerGame.$.gamedata.image" alt=""></a>
+      </div>
+    </div>
+    <h2>Geeklist, sorted</h2>
 
     <table class="table table-bordered">
       <thead>
-        <th>Game</th>
+        <th colspan="2">Game</th>
         <th>Players</th>
         <th>Recommended by</th>
-        <th>Thumbs</th>
+        <th class="text-right">Thumbs</th>
+        <th class="text-right">Weighted</th>
       </thead>
         @model.geeklistData.item.forEach(function(item){
           <tr>
             <td>
-                <a href="https://boardgamegeek.com/boardgame/@item.$.">@item.$.objectname</a>
+                <a href="https://boardgamegeek.com/boardgame/@item.$.objectid"><img src="@item.$.gamedata.thumbnail[0]" class="game-thumbnail" alt=""></a>
+            </td>
+            <td>
+                <a href="https://boardgamegeek.com/boardgame/@item.$.objectid">@item.$.objectname</a>
             </td>
             <td>
               @if (item.$.gamedata.minplayers[0] === item.$.gamedata.maxplayers[0]) {
@@ -24,18 +40,31 @@
               }
             </td>
             <td>
-                @item.$.thumbedby.join(', ')
+                <ul class='inline-list'>
+                @item.$.thumbedby.forEach(function(username){
+	                @if (model.promotedUsers.indexOf(username) > -1) {
+                    <li class="promoted-user">@username</li>
+                  } else {
+                    <li>@username</li>
+                  }
+                })
+                </ul>
             </td>
             <td class="text-right">
-              @item.$.thumbedby.length thumbs
+              @item.$.thumbs
+            </td>
+            <td class="text-right">
+              @item.$.thumbsweighted (+@(item.$.thumbsweighted - item.$.thumbs))
             </td>
 
           </tr>
         })
     </table>
-
-    <p><a href="?json=true">view as json</a></p>
-
+    <p class="notes">List is made from the items from the <a href="https://boardgamegeek.com/geeklist/227177">LPC Bookclub Geeklist</a>, 
+    sorted by weighted thumbs (users in bold get @model.extra_weight votes instead of one), then by age of item being added to list.</p>
+    
+    <p class="notes"><a href="?json=true">View as json</a> | Boardgame data from <a href="https://boardgamegeek.com">BoardGameGeek</a></p>
+    <p class="notes">Last updated: @model._cache.lastUpdated. Data is updated after data is an hour old and on request of this page.</p>
   })
 
 })

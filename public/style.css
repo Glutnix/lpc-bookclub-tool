@@ -10,7 +10,8 @@
 
 body {
   font-family: helvetica, arial, sans-serif;
-  margin: 25px;
+  margin: 1em;
+  color: #111;
 }
 
 h1 {
@@ -23,7 +24,7 @@ h1 {
 }
 
 p {
-  max-width: 600px;
+  max-width: 1000px;
 }
 
 form {
@@ -83,4 +84,70 @@ footer > a {
 
 .text-right {
   text-align: right;
+}
+
+.table {
+  border-collapse: collapse;
+}
+.table th {
+  text-align: left;
+}
+
+.table td, 
+.table th {
+  vertical-align: top;
+  padding: 0.2em 0.5em;
+}
+.table tr:hover {
+  background-color: #eee;
+}
+
+.columns {
+  display: flex;
+}
+
+.columns-half {
+  flex: 1 0 50%;
+  text-align: center;
+}
+
+.top-pick-image {
+  width: auto;
+  max-height: 250px;
+  max-width: 500px;
+}
+
+.inline-list {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.inline-list li {
+  display: inline-block;
+}
+.inline-list li:after {
+  content: ",";
+  padding-right: .25em;
+}
+.inline-list li:last-child:after {
+  content: "";
+  padding-right: 0;
+}
+
+.promoted-user {
+  font-weight: bold;
+}
+
+.game-thumbnail {
+  width: 50px;
+  vertical-align: middle;
+}
+
+.notes {
+  color: #777;
+}
+
+.notes > a {
+  color: #999;
 }
