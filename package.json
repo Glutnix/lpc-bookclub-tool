@@ -2,29 +2,32 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-
-  "name": "my-glitch-app",
+  "name": "lpc-bookclub-tool",
   "version": "0.0.1",
-  "description": "What am I about?",
+  "description": "I download data from BoardGameGeek and present information about a particular geeklist",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nf run PORT=8000 yarn start"
   },
   "dependencies": {
-    "express": "^4.15.3",
     "axios": "^0.16.2",
+    "cachios": "^1.0.5",
+    "express": "^4.15.3",
     "node-axios-cookiejar": "^0.0.3",
-    "xml2js": "^0.4.17",
+    "persistent-cache": "^1.1.1",
     "striptags": "^3.0.1",
     "vash": "^0.12.2",
-    "cachios": "^1.0.5",
-    "persistent-cache": "^1.1.1"
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "foreman": "^2.0.0"
   },
   "engines": {
     "node": "8.1.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/welcome-project"
+    "url": "https://glitch.com/edit/#!/lpc-bookclub-tool"
   },
   "license": "MIT",
   "keywords": [
