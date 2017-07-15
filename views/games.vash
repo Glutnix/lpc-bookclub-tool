@@ -60,11 +60,11 @@
           </tr>
         })
     </table>
-    <p class="notes">List is made from the items from the <a href="https://boardgamegeek.com/geeklist/227177">LPC Bookclub Geeklist</a>, 
+    <p class="notes">List is made from the items from the <a href="https://boardgamegeek.com/geeklist/227177">LPC PnP Bookclub Geeklist</a>, 
     sorted by weighted thumbs (users in bold get @model.extra_weight votes instead of one), then by age of item being added to list.</p>
     
-    <p class="notes"><a href="?json=true">View as json</a> | Boardgame data from <a href="https://boardgamegeek.com">BoardGameGeek</a></p>
-    <p class="notes">Last updated: @model._cache.lastUpdated. Data is updated after data is an hour old and on request of this page.</p>
+    <p class="notes"><a href="?json=true">View as JSON</a> | Boardgame data from <a href="https://boardgamegeek.com">BoardGameGeek</a></p>
+    <p class="notes">Last updated: @model._cache.lastUpdated. Data is updated when you load this page after the data is an hour old.</p>
   })
 
 })
