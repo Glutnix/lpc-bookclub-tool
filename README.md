@@ -1,6 +1,9 @@
 LPC Bookclub Tool
 =========================
 
+* [Live Site](https://lpc-bookclub-tool.glitch.me/)
+* [Remix on Glitch](https://glitch.com/~lpc-bookclub-tool)
+
 This tool is designed to show who's recommended games all at once. It will, eventually, sort the list by recommendations, taking into consideration the extra voting power by previously participating members.
 
 ## Remixing on Glitch

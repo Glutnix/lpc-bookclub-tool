@@ -22,8 +22,8 @@
 
 		<footer>
 			@html.block('footer')	
-      <a href="https://glitch.com">
-        Remix this in Glitch
+      <a href="https://glitch.com/~lpc-bookclub-tool">
+        Remix this node app in Glitch
       </a> | <a href="https://github.com/Glutnix/lpc-bookclub-tool">or make a pull request on Git</a>
     </footer>
 
